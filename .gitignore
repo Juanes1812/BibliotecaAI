@@ -1,0 +1,51 @@
+# Entornos virtuales
+venv/
+.env/
+.venv/
+
+# Archivos de configuración de entorno
+*.env
+*.env.*
+
+# Archivos y carpetas generados por Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Archivos de logs
+*.log
+
+# Archivos de bases de datos locales
+*.sqlite3
+*.db
+
+# Configuración de VS Code
+.vscode/
+
+# Archivos de Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Archivos de macOS
+.DS_Store
+
+# Archivos de sistema
+Thumbs.db
+
+# Archivos de pruebas
+.coverage
+htmlcov/
+
+# Paquetes instalados
+*.egg
+*.egg-info/
+dist/
+build/
+
+# PyInstaller
+*.spec
+
+# Otros archivos personales o temporales
+*.bak
+*.tmp
+*.swp
