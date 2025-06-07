@@ -10,13 +10,14 @@ class BilingualQueryProcessor:
             temperature=0 
         )
     
-    def generate_sql(self, user_request: str) -> str:
+    def generate_sql(self, user_request: str, correo: str) -> str:
         chain = (
             prompt_templates.request_to_sql_prompt
             | self.llm
             | StrOutputParser()
         )
-        return chain.invoke({"user_request": user_request})
+        return chain.invoke({"user_request": user_request, "correo": correo})
+
     
     def generate_response(self, database_result: str) -> str:
         chain = (

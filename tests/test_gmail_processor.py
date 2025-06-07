@@ -1,0 +1,10 @@
+from app.services.gmail_service import GmailService
+from app.services.gmail_processor import GmailProcessor
+
+if __name__ == "__main__":
+    gmail = GmailService()
+
+    api_url = "http://localhost:8000/api/procesar-solicitud"
+
+    processor = GmailProcessor(gmail_service=gmail, api_url=api_url)
+    processor.procesar_emails()
