@@ -54,7 +54,7 @@ Sistema que permite gestionar reservas de libros mediante solicitudes por correo
     Documentación Swagger: http://localhost:8000/docs
 
     Envía correos con comandos como:
-    "Reservar El Principito"
+    "Reservar el libro 'El alquimista'"
     "Listar libros disponibles"
 
 8. Despliegue en Azure:

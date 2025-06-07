@@ -1,7 +1,8 @@
+from langchain_community.chat_models import ChatOllama
 from langchain_core.prompts import ChatPromptTemplate
 
-# Prompt para convertir lenguje natrual → SQL 
-request_to_sql_prompt = ChatPromptTemplate.from_messages([
+# Prompt simple de prueba
+prompt = ChatPromptTemplate.from_messages([
     ("system", """
     Eres un asistente para un sistema de biblioteca. 
     Recibes solicitudes en español que incluyen títulos de libros también en español.
@@ -27,25 +28,9 @@ request_to_sql_prompt = ChatPromptTemplate.from_messages([
     ("human", "{user_request}")
 ])
 
-# Prompt para mostrar la respuesta (español)
-sql_to_response_prompt = ChatPromptTemplate.from_template( 
-    """Redacta una respuesta clara y amigable en español basada en la siguiente instrucción SQL ejecutada:
+# Crea el LLM de Ollama
+chain = prompt | ChatOllama(model="phi", temperature=0)
 
-    SQL: {database_result}
-    
-    Instrucciones:
-    1. Explica al usuario qué hizo el sistema, en una sola frase sencilla.
-    2. Usa un tono amable y directo.
-    3. Si es una reserva de libro, menciona el título entre comillas.
-    4. Si hay una fecha de vencimiento, indícala en formato DD/MM/AAAA.
-    
-    Ejemplos:
-    - SQL: INSERT INTO reservas (libro_id, usuario_email, fecha_reserva, fecha_vencimiento) SELECT id, 'juan@example.com', DATE('now'), DATE('now', '+7 days') FROM libros WHERE titulo = 'Cien años de soledad'; → Has reservado 'Cien años de soledad'. La reserva vence el 14/06/2025.
-
-    - SQL: DELETE FROM libros WHERE titulo = '1984'; → El libro '1984' ha sido eliminado del catálogo.
-
-    - SQL: UPDATE libros SET estado = 'prestado' WHERE titulo = 'Rayuela'; → El estado del libro 'Rayuela' se ha actualizado a prestado.
-
-    Respuesta:
-    """
-)
+# Ejecuta prueba
+respuesta = chain.invoke({"user_request": "Reservar el libro 'La carpa roja'"})
+print("Respuesta del modelo:\n", respuesta.content)

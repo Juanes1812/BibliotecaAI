@@ -1,21 +1,17 @@
-from sqlalchemy import create_engine
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
-from app.core.config import settings
-from app.db.base import Base
+from app.core.config import settings  
 
-# Configuración de la conexión
-engine = create_engine(
-    settings.DATABASE_URL,
-    pool_pre_ping=True  # Verifica que la conexión esté activa
+DATABASE_URL = settings.DATABASE_URL
+
+engine = create_async_engine(DATABASE_URL, echo=True)
+
+async_session = sessionmaker(
+    engine,
+    class_=AsyncSession,
+    expire_on_commit=False
 )
 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-#Funciona para abrir y cerrar sesiones de base de datos
-def get_db():
-    """Provee una sesión de base de datos para dependencias FastAPI"""
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+async def get_db():
+    async with async_session() as session:
+        yield session
