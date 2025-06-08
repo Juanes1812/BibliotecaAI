@@ -32,10 +32,12 @@ Sistema que permite gestionar reservas de libros mediante solicitudes por correo
     cp .env.example .env    # Linux/Mac
 
 5. Configuración (.env):
+    ### Configuracion con Gmail
+    smtp_username=usuario@gmail.com
+    app_password=clave_de_aplicacion
 
-    smtp_username=tu_correo@gmail.com           #Tu dirección de Gmail
-
-    app_password=tu_clave_de_aplicacion         #Contraseña de aplicación (generada en Google)
+    ### Configuracion para la base de datos
+    DATABASE_URL=sqlite+aiosqlite:///./nombre_base_datos.db
 
 6. Para cargar la base de datos(si no se tiene aún):
 
