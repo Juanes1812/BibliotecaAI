@@ -53,13 +53,13 @@ Sistema que permite gestionar reservas de libros mediante solicitudes por correo
 
 9. Uso:
 
-    Acceso de la API: http://localhost:8000/api
+    Acceso de la API: http://localhost:8000
 
     Documentación Swagger: http://localhost:8000/docs
     
 10. Endpoints principales:
 
-    POST /procesar-solicitud: Procesa solicitudes (requiere un correo y mensaje para funcionar)
+    POST /api/procesar-solicitud: Procesa solicitudes (requiere un correo y mensaje para funcionar)
 
 11. Envía correos con comandos como:
     - "Reservar el libro 'El alquimista'"
