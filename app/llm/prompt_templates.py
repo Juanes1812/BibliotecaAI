@@ -21,7 +21,7 @@ request_to_sql_prompt = ChatPromptTemplate.from_messages([
     - Reservar el libro 'Cien años de soledad'→  
     `INSERT INTO reservas (libro_id, usuario_email, fecha_reserva, fecha_vencimiento) SELECT id, '{correo}', DATE('now'), DATE('now', '+7 days') FROM libros WHERE titulo = 'Cien años de soledad';`
 
-    - Mostrar libros reservados  →  
+    - Mostrar mis libros reservados  →  
     `SELECT l.titulo, l.autor FROM libros l JOIN reservas r ON l.id = r.libro_id WHERE r.usuario_email = '{correo}';`
 
     - Renovar una reserva 'Cien años de soledad' →  
@@ -30,13 +30,13 @@ request_to_sql_prompt = ChatPromptTemplate.from_messages([
     - Cancelar una reserva 'Cien años de soledad'→  
     `DELETE FROM reservas WHERE libro_id = (SELECT id FROM libros WHERE titulo = 'Cien años de soledad') AND usuario_email = '{correo}';`
 
-    - Agregar un libro →  
+    - Agregar un libro '1984', 'George Orwell', '1234567890', 'disponible' →  
     `INSERT INTO libros (titulo, autor, isbn, estado) VALUES ('1984', 'George Orwell', '1234567890', 'disponible');`
 
     - Mostrar todos los libros →  
     `SELECT * FROM libros;`
 
-    - Eliminar el libro de 'El alquimista' →  
+    - Eliminar el libro 'El alquimista' →  
     `DELETE FROM libros WHERE titulo = 'El alquimista';`
 
     Responde solo con una línea de código SQL válida y nada más.

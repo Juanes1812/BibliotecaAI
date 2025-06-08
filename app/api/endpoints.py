@@ -26,7 +26,8 @@ async def procesar_solicitud(payload: dict = Body(...), db: AsyncSession = Depen
         # 1. Generar SQL desde lenguaje natural usando un hilo para no bloquear
         sql = await asyncio.to_thread(processor.generate_sql, mensaje_usuario, correo_usuario)
         print(f"SQL generado: {sql}")
-# 3. Ejecutar SQL
+
+        # 2. Ejecutar SQL
         try:
             result = await db.execute(text(sql))
             await db.commit()
@@ -35,12 +36,12 @@ async def procesar_solicitud(payload: dict = Body(...), db: AsyncSession = Depen
             logger.error(f"❌ Error ejecutando SQL: {sql_err}")
             raise
 
-        # 4. Si es SELECT, formatear los datos para el usuario
+        # 3. Si es SELECT, formatear los datos para el usuario
         if sql.strip().lower().startswith("select"):
             rows = result.fetchall()
             data = [dict(row._mapping) for row in rows]
             respuesta = {
-                "resultado": data,
+                "respuesta": data,
                 "tipo": "consulta",
                 "correo_usuario": correo_usuario
             }

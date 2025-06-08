@@ -5,8 +5,7 @@ Sistema que permite gestionar reservas de libros mediante solicitudes por correo
 
 ## Requisitos
 - Python 3.8+
-- Cuenta de Azure para Graph API
-- Cuenta de OpenAI o proveedor de LLM
+- Descargar el modelo LLM de Ollama llamado 'phi'
 
 ## Instalación
 1. Clonar repositorio:
@@ -27,44 +26,41 @@ Sistema que permite gestionar reservas de libros mediante solicitudes por correo
     copy .env.example .env  # Windows
     cp .env.example .env    # Linux/Mac
 
-5. Ejecutar el programa:
-    uvicorn app.main:app --reload
+5. Configuración (.env):
+    ### Configuracion con Gmail
+    smtp_username=usuario@gmail.com
+    app_password=clave_de_aplicacion
 
-6. Configuración (.env):
-    # Base de datos
-    DATABASE_URL=sqlite:///./biblioteca.db
+    ### Configuracion para la base de datos
+    DATABASE_URL=sqlite+aiosqlite:///./nombre_base_datos.db
 
-
-    # Configuracion con Mailtrap
-    SMTP_SERVER=sandbox.smtp.mailtrap.io
-    SMTP_PORT=puerto_de_tu_eleccion
-    SMTP_USERNAME=tu_username_id
-    SMTP_PASSWORD=tu_password
-
-    # LLM
-    LLM_API_KEY=tu_api_key
-
-7. Para cargar la base de datos:
+6. Para cargar la base de datos(si no se tiene aún):
     python -m app.scripts.init_db
 
+7. Activar la carga de correos:
+    python -m app.scripts.gmail_complete_process
 
-7. Uso:
-    Accede a la API: http://localhost:8000
+8. Ejecutar el programa:
+    uvicorn app.main:app --reload
 
+9. Uso:
+    Acceso de la API: http://localhost:8000/api
     Documentación Swagger: http://localhost:8000/docs
+    
+10. Envía correos con comandos como:
+    - "Reservar el libro 'El alquimista'"
+    - "Cancelar una reserva 'La granja de animales'"
+    - "Renovar una reserva 'Cien años de soledad'"
+    - "Mostrar libros disponibles"
+    - "Mostrar mis libros reservados"
+    - "Agregar un libro '1984', 'George Orwell', '1234567890', 'disponible'"
+    - "Eliminar el libro 'El principito'"
 
-    Envía correos con comandos como:
-    "Reservar el libro 'El alquimista'"
-    "Listar libros disponibles"
+11. Endpoints principales:
+    POST /procesar-solicitud: Procesa solicitudes (requiere un correo y mensaje para funcionar)
 
-8. Despliegue en Azure:
-    docker build -t biblioteca-ia .
-    az acr build --registry <nombre-registro> --image biblioteca-ia .
-
-9. Endpoints principales:
-    POST /procesar-email: Procesa nuevos correos
-
-    GET /libros: Lista todos los libros
-
-    POST /reservas: Crea nueva reserva
+## Uso
+¿Cómo usarla?
+Una vez hechos todos los pasos, mandar un coreo con alguno de los comandos del punto 10.
+Si has enviado exitosamente la información, vera cxomo se te envia un correo con una respuesta de lo que se hizo.
 
