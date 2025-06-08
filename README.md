@@ -32,12 +32,10 @@ Sistema que permite gestionar reservas de libros mediante solicitudes por correo
     cp .env.example .env    # Linux/Mac
 
 5. Configuración (.env):
-    ### Configuracion con Gmail
-    smtp_username=usuario@gmail.com
-    app_password=clave_de_aplicacion
 
-    ### Configuracion para la base de datos
-    DATABASE_URL=sqlite+aiosqlite:///./nombre_base_datos.db
+    smtp_username=tu_correo@gmail.com           #Tu dirección de Gmail
+
+    app_password=tu_clave_de_aplicacion         #Contraseña de aplicación (generada en Google)
 
 6. Para cargar la base de datos(si no se tiene aún):
 
@@ -57,7 +55,11 @@ Sistema que permite gestionar reservas de libros mediante solicitudes por correo
 
     Documentación Swagger: http://localhost:8000/docs
     
-10. Envía correos con comandos como:
+10. Endpoints principales:
+
+    POST /procesar-solicitud: Procesa solicitudes (requiere un correo y mensaje para funcionar)
+
+11. Envía correos con comandos como:
     - "Reservar el libro 'El alquimista'"
     - "Cancelar una reserva 'La granja de animales'"
     - "Renovar una reserva 'Cien años de soledad'"
@@ -66,12 +68,7 @@ Sistema que permite gestionar reservas de libros mediante solicitudes por correo
     - "Agregar un libro '1984', 'George Orwell', '1234567890', 'disponible'"
     - "Eliminar el libro 'El principito'"
 
-11. Endpoints principales:
-
-    POST /procesar-solicitud: Procesa solicitudes (requiere un correo y mensaje para funcionar)
-
 ## Uso
-
-Una vez hechos todos los pasos, mandar un coreo con alguno de los comandos del punto 10.
+Una vez hechos todos los pasos, mandar un coreo con alguno de los comandos del punto 11.
 Si has enviado exitosamente la información, verá como se le envia un correo con una respuesta del comando enviado.
 
